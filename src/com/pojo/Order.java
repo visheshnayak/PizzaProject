@@ -2,7 +2,7 @@ package com.pojo;
 
 public class Order {
 
-	private int totalprice,orderid,userid,sessionid;
+	private int totalprice,orderid,userid,sessionid,pizzaid;
 	private String extraToppings;
 	
 	public Order() {
@@ -11,6 +11,14 @@ public class Order {
 		this.userid = 0;
 		this.sessionid = 0;
 		this.extraToppings = "";
+	}
+
+	public int getPizzaid() {
+		return pizzaid;
+	}
+
+	public void setPizzaid(int pizzaid) {
+		this.pizzaid = pizzaid;
 	}
 
 	@Override

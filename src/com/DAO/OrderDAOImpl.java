@@ -13,7 +13,7 @@ import com.pojo.Order;
 public class OrderDAOImpl implements OrderDAO {
 
 	@Override
-	public List<Order> showOrder(int userid, int sessionid) {
+	public List<Order> showOrderbySession(int userid, int sessionid) {
 		// TODO Auto-generated method stub
 		Connection conn = MyConnection.setConnection();
 		String sql = "SELECT * FROM orders WHERE userid=? & sessionid=?";
@@ -60,6 +60,38 @@ public class OrderDAOImpl implements OrderDAO {
 			{
 				Order order = new Order();
 			
+				order.setOrderid(rs.getInt(1));
+				order.setUserid(rs.getInt(2));
+				order.setPizzaid(rs.getInt(3));
+				order.setTotalprice(rs.getInt(4));
+				order.setSessionid(rs.getInt(5));
+				order.setExtraToppings(rs.getString(6));
+				
+				res.add(order);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public List<Order> showOrderbyUser(int userid) {
+		// TODO Auto-generated method stub
+		Connection conn = MyConnection.setConnection();
+		String sql = "SELECT * FROM orders WHERE userid=?";
+		List<Order> res = new ArrayList<>();
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			
+			ps.setInt(1, userid);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next())
+			{
+				Order order = new Order();
 				order.setOrderid(rs.getInt(1));
 				order.setUserid(rs.getInt(2));
 				order.setPizzaid(rs.getInt(3));
